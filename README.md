@@ -1,10 +1,10 @@
 # 快速开始 
-- 在Release 找到对应可执行文件,添加到环境变量.
-    ```bash
+在Release 找到对应可执行文件,添加到环境变量.
+```bash
 uname -a    
 ```
 ```pwsh
-systemino
+systeminfo
 ```
 查看当前系统架构
 
