@@ -1,5 +1,7 @@
 mod doctor;
+mod exec;
 mod info;
+mod init;
 mod install;
 mod util;
 
@@ -42,6 +44,24 @@ enum Cmd {
         #[arg(long, help = "force reinstall")]
         force: bool,
     },
+    /// Run one command through a unified shell entry (nu by default, brush for bash)
+    Exec {
+        /// Shell to use: nu | brush (default: nu if present, else brush)
+        #[arg(long)]
+        shell: Option<String>,
+        /// Skip the append-only audit log (~/.lf/exec_log.jsonl)
+        #[arg(long)]
+        no_log: bool,
+        /// The command line to run. If empty, a script is read from stdin.
+        #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
+        cmd: Vec<String>,
+    },
+    /// Generate cross-platform shell config (env.nu, brush.rc); --apply wires them in
+    Init {
+        /// Patch nushell env + .bashrc to source the generated configs
+        #[arg(long)]
+        apply: bool,
+    },
 }
 
 fn main() -> anyhow::Result<()> {
@@ -58,5 +78,10 @@ fn main() -> anyhow::Result<()> {
             install::run(&[], force, true)?;
             doctor::run(false)
         }
+        Cmd::Exec { shell, no_log, cmd } => {
+            let code = exec::run(shell, cmd, no_log)?;
+            std::process::exit(code);
+        }
+        Cmd::Init { apply } => init::run(apply),
     }
 }
