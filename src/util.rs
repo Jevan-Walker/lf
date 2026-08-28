@@ -1,7 +1,7 @@
 //! Shared helpers for `lf`.
 use anyhow::{anyhow, bail, Context, Result};
 use sha2::{Digest, Sha256};
-use std::env;
+use std::{env, fs};
 use std::fs::File;
 use std::io::Read;
 use std::path::{Path, PathBuf};
