@@ -1,3 +1,16 @@
+# 快速开始 
+- 在Release 找到对应可执行文件,添加到环境变量.
+    ```bash
+uname -a    
+```
+```pwsh
+systemino
+```
+查看当前系统架构
+
+
+
+
 # lf — Lightweight system info + cross-platform shell environment for AI agents
 
 `lf` 是一个单二进制 CLI，为 AI agent 提供**统一的跨平台执行环境底座**：
